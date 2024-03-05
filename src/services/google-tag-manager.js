@@ -28,6 +28,7 @@ exports.addGoogleTagManager = (
     })(window, document, "script", dataLayerName, trackingId)
     /* eslint-enable */
 
+    const noScript = document.createElement(`noscript`)
     const iframe = document.createElement(`iframe`)
     iframe.key = `gatsby-plugin-gdpr-cookies-google-tagmanager-iframe`
     iframe.src = `https://www.googletagmanager.com/ns.html?id=${trackingId}${environmentParamStr}`
@@ -35,7 +36,8 @@ exports.addGoogleTagManager = (
     iframe.width = 0
     iframe.style = `display: none; visibility: hidden`
 
-    document.body.insertBefore(iframe, document.body.firstChild)
+    noScript.append(iframe)
+    document.body.insertBefore(noScript, document.body.firstChild)
 
     window.gatsbyPluginGDPRCookiesGoogleTagManagerAdded = true
 
